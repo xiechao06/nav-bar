@@ -37,11 +37,12 @@ ul_tpl = """
 
 class NavLink(object):
 
-    def __init__(self, url, anchor, enabler, permissions):
+    def __init__(self, url, anchor, enabler, permissions, group):
         self.anchor = anchor
         self.enabler = enabler
         self.permissions = permissions
         self.__url = url
+        self.group = group
 
     @property
     def url(self):
@@ -54,9 +55,21 @@ class NavBar(object):
     def __init__(self, project_name=""):
         self.project_name = project_name
         self.__all_nav_links = []
+        self.__groups = {}
     
-    def register(self, url, anchor, enabler, permissions=[]):
-        self.__all_nav_links.append(NavLink(url, anchor, enabler, permissions))
+    def register(self, url, anchor, enabler, permissions=[], group=""):
+        nav_link = NavLink(url, anchor, enabler, permissions, group)
+        self.__all_nav_links.append(nav_link)
+        self.__groups.setdefault(group, []).append(nav_link)
+    
+    @property
+    def groups(self):
+        for k, v in self.__groups.items():
+            nav_links = []
+            for nav_link in v:
+                if all(perm.can() for perm in nav_link.permissions):
+                    nav_links.append(nav_link)
+            yield {"name": k, "nav_links": nav_links} 
         
     @property
     def nav_links(self):
