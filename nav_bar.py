@@ -15,11 +15,11 @@ ul_tpl = """
 <div class="navbar">
   <div class="navbar-inner">
     <div class="brand">{{ project_name }}</div>
-    <ul = class="nav">
+    <ul class="nav">
     {% for nav_link in nav_links %}
       {% if nav_link.enabler() %}
           <li class="{{highlight_class}}">
-            <a href="#">
+            <a href="{{nav_link.url}}">
                 <strong>{{nav_link.anchor}}</strong>
             </a>
           </li>
