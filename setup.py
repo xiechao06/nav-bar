@@ -1,17 +1,16 @@
 from distutils.core import setup
 from setuptools import find_packages
-from setuptools.command.test import test as TestCommand
-import sys
-import os.path
 
 PACKAGE = "nav_bar"
 NAME = "nav-bar"
 DESCRIPTION = ""
-AUTHOR = ""
-AUTHOR_EMAIL = ""
+AUTHOR = "xiechao"
+AUTHOR_EMAIL = "xiechao06@gmail.com"
+VERSION = "0.9.0"
 URL = ""
-VERSION = __import__(PACKAGE).__version__
-DOC = __import__(PACKAGE).__doc__
+DOC = """
+doc
+"""
 
 
 setup(
