@@ -11,28 +11,28 @@ from jinja2 import Template
 
 
 ul_tpl = """
-
-<div class="navbar">
-  <div class="navbar-inner">
-    <div class="brand">{{ project_name }}</div>
-    <ul class="nav">
+<div class="navbar navbar-default" role="navigation">
+  {% if project_name %}
+    <div class="navbar-header">
+      <div class="navbar-brand">{{ project_name }}</div>
+    </div>
+  {% endif %}
+  <ul class="nav navbar-nav">
     {% for nav_link in nav_links %}
       {% if nav_link.enabler() %}
-          <li class="{{highlight_class}}">
-            <a href="{{nav_link.url}}">
-                <strong>{{nav_link.anchor}}</strong>
-            </a>
-          </li>
+        <li class="{{ highlight_class }}">
+          <a href="{{ nav_link.url }}">
+            <strong>{{ nav_link.anchor }}</strong>
+          </a>
+        </li>
       {% else %}
-          <li class="{{normal_class}}">
-            <a href="{{nav_link.url}}">{{nav_link.anchor}}</a>
-          </li>
+        <li class="{{ normal_class }}">
+          <a href="{{ nav_link.url }}">{{ nav_link.anchor }}</a>
+        </li>
       {% endif %}
     {% endfor %}
-    </ul>
-  </div>
+  </ul>
 </div>
-
 """
 
 class NavLink(object):
